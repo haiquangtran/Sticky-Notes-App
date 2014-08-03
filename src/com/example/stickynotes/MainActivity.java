@@ -18,16 +18,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		Button chatHead = (Button)findViewById(R.id.button1);
-		chatHead.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startChatHead();
-			}
-		});
-		
-		
 	}
 
 	@Override
@@ -44,4 +34,7 @@ public class MainActivity extends Activity {
 		startService(intent);
 	}
 
+	public void destroyChatHead(View v){
+		stopService(new Intent(this,ChatHeadService.class));
+	}
 }

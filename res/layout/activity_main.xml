@@ -24,6 +24,17 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_centerVertical="true"
-        android:text="Button" />
+        android:onClick="startChatHead"
+        android:text="Start" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:onClick="destroyChatHead"
+        android:layout_marginBottom="44dp"
+        android:text="Stop" />
 
 </RelativeLayout>
