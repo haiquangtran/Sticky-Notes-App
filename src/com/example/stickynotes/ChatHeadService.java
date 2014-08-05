@@ -13,19 +13,23 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 public class ChatHeadService extends Service {
-
 	private WindowManager windowManager;
 	private ImageView chatHead;
+	private ImageView rubbishBin;
 
 
 	@Override public void onCreate() {
 		super.onCreate();
 
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-
+		//Create Chat Head View
 		chatHead = new ImageView(this);
 		chatHead.setImageResource(R.drawable.icon);
+		//Create Rubbish Bin View
+		rubbishBin =  new ImageView(this);
+		rubbishBin.setImageResource(R.drawable.icon);
 
+		//Layouts
 		final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 				LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT,
@@ -36,15 +40,24 @@ public class ChatHeadService extends Service {
 		params.gravity = Gravity.TOP | Gravity.LEFT;
 		params.x = 0;
 		params.y = 100;
-
+		final WindowManager.LayoutParams popUp = new WindowManager.LayoutParams(
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT,
+				WindowManager.LayoutParams.TYPE_PHONE,
+				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+				PixelFormat.TRANSLUCENT);
+		params.gravity = Gravity.TOP | Gravity.LEFT;
+		params.x = 0;
+		params.y = 300;
+		//Manager
 		windowManager.addView(chatHead, params);
-
+		windowManager.addView(rubbishBin, popUp); //Should only show if dragging
+		//Touch Events
 		chatHead.setOnTouchListener(new View.OnTouchListener() {
 			private int initialX;
 			private int initialY;
 			private float initialTouchX;
 			private float initialTouchY;
-
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -61,6 +74,10 @@ public class ChatHeadService extends Service {
 					params.x = initialX + (int) (event.getRawX() - initialTouchX);
 					params.y = initialY + (int) (event.getRawY() - initialTouchY);
 					windowManager.updateViewLayout(chatHead, params);
+					//Create Rubbish Bin
+
+
+
 					return true;
 				}
 				return false;
